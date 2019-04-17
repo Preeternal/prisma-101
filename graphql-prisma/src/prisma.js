@@ -36,7 +36,7 @@ createPostForUser("cjudyhwpf001g0744f94dj8qz", {
   published: true
 }).then(user => {
   console.log(JSON.stringify(user, undefined, 2));
-}); //
+});
 
 // prisma.query.users(null, "{id name posts { id title }}").then(data => {
 //   console.log(JSON.stringify(data, undefined, 2));
