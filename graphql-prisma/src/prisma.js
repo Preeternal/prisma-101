@@ -5,117 +5,119 @@ const prisma = new Prisma({
   endpoint: "http://localhost:4466"
 });
 
-const createPostForUser = async (authorID, data) => {
-  const userExists = await prisma.exists.User({ id: authorID });
-  if (!userExists) {
-    throw new Error("User not found");
-  }
-  const post = await prisma.mutation.createPost(
-    {
-      data: {
-        ...data,
-        author: {
-          connect: {
-            id: authorID
-          }
-        }
-      }
-    },
-    "{author { id name email posts {id title published} }}"
-  );
-  return post.author;
-};
+export { prisma as default };
 
-// createPostForUser("cjudt0bwd001v0738bftr9ewz", {
-//   title: "Great film about",
-//   body: "Space",
-//   published: true
-// })
-//   .then(user => {
-//     console.log(JSON.stringify(user, undefined, 2));
-//   })
-//   .catch(error => {
-//     console.log(error.message);
-//   });
-
-const updatePostForUser = async (postId, data) => {
-  const postExists = await prisma.exists.Post({ id: postId });
-  if (!postExists) {
-    throw new Error("Post not found");
-  }
-  const post = await prisma.mutation.updatePost(
-    {
-      where: {
-        id: postId
-      },
-      data
-    },
-    "{ author { id name email posts { id title published } } }"
-  );
-  return post.author;
-};
-
-// updatePostForUser("cjudu2buj007a0738e1kzh8xd", {
-//   title: "Prisma second post",
-//   body: "nothing to write",
-//   published: false
-// })
-//   .then(user => {
-//     console.log(JSON.stringify(user, undefined, 2));
-//   })
-//   .catch(error => {
-//     console.log(error.message);
-//   });
-
-// prisma.query.users(null, "{id name posts { id title }}").then(data => {
-//   console.log(JSON.stringify(data, undefined, 2));
-// });
-
-// prisma.query.comments(null, "{id text author {name} post {title}}").then(data => {
-//   console.log(JSON.stringify(data, undefined, 2));
-// });
-
-// prisma.mutation
-//   .createPost(
+// const createPostForUser = async (authorID, data) => {
+//   const userExists = await prisma.exists.User({ id: authorID });
+//   if (!userExists) {
+//     throw new Error("User not found");
+//   }
+//   const post = await prisma.mutation.createPost(
 //     {
 //       data: {
-//         title: "GraphQL 101",
-//         body: "",
-//         published: false,
+//         ...data,
 //         author: {
 //           connect: {
-//             id: "cjudt0bwd001v0738bftr9ewz"
+//             id: authorID
 //           }
 //         }
 //       }
 //     },
-//     "{id title body published}"
-//   )
-//   .then(data => {
-//     console.log(data);
-//     return prisma.query.users(null, "{id name posts { id title }}");
-//   })
-//   .then(data => {
-//     console.log(JSON.stringify(data, undefined, 2));
-//   });
+//     "{author { id name email posts {id title published} }}"
+//   );
+//   return post.author;
+// };
 
-// prisma.mutation
-//   .updatePost(
+// // createPostForUser("cjudt0bwd001v0738bftr9ewz", {
+// //   title: "Great film about",
+// //   body: "Space",
+// //   published: true
+// // })
+// //   .then(user => {
+// //     console.log(JSON.stringify(user, undefined, 2));
+// //   })
+// //   .catch(error => {
+// //     console.log(error.message);
+// //   });
+
+// const updatePostForUser = async (postId, data) => {
+//   const postExists = await prisma.exists.Post({ id: postId });
+//   if (!postExists) {
+//     throw new Error("Post not found");
+//   }
+//   const post = await prisma.mutation.updatePost(
 //     {
-//       data: {
-//         body: "some data",
-//         published: "true"
-//       },
 //       where: {
-//         id: "cjui7yiwm009o0744vrh6g9sf"
-//       }
+//         id: postId
+//       },
+//       data
 //     },
-//     "{id title body published}"
-//   )
-//   .then(data => {
-//     console.log(data);
-//     return prisma.query.posts(null, "{id title body published}");
-//   })
-//   .then(data => {
-//     console.log(JSON.stringify(data, undefined, 2));
-//   });
+//     "{ author { id name email posts { id title published } } }"
+//   );
+//   return post.author;
+// };
+
+// // updatePostForUser("cjudu2buj007a0738e1kzh8xd", {
+// //   title: "Prisma second post",
+// //   body: "nothing to write",
+// //   published: false
+// // })
+// //   .then(user => {
+// //     console.log(JSON.stringify(user, undefined, 2));
+// //   })
+// //   .catch(error => {
+// //     console.log(error.message);
+// //   });
+
+// // prisma.query.users(null, "{id name posts { id title }}").then(data => {
+// //   console.log(JSON.stringify(data, undefined, 2));
+// // });
+
+// // prisma.query.comments(null, "{id text author {name} post {title}}").then(data => {
+// //   console.log(JSON.stringify(data, undefined, 2));
+// // });
+
+// // prisma.mutation
+// //   .createPost(
+// //     {
+// //       data: {
+// //         title: "GraphQL 101",
+// //         body: "",
+// //         published: false,
+// //         author: {
+// //           connect: {
+// //             id: "cjudt0bwd001v0738bftr9ewz"
+// //           }
+// //         }
+// //       }
+// //     },
+// //     "{id title body published}"
+// //   )
+// //   .then(data => {
+// //     console.log(data);
+// //     return prisma.query.users(null, "{id name posts { id title }}");
+// //   })
+// //   .then(data => {
+// //     console.log(JSON.stringify(data, undefined, 2));
+// //   });
+
+// // prisma.mutation
+// //   .updatePost(
+// //     {
+// //       data: {
+// //         body: "some data",
+// //         published: "true"
+// //       },
+// //       where: {
+// //         id: "cjui7yiwm009o0744vrh6g9sf"
+// //       }
+// //     },
+// //     "{id title body published}"
+// //   )
+// //   .then(data => {
+// //     console.log(data);
+// //     return prisma.query.posts(null, "{id title body published}");
+// //   })
+// //   .then(data => {
+// //     console.log(JSON.stringify(data, undefined, 2));
+// //   });
