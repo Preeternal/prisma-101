@@ -8,3 +8,7 @@ graphql-basics/node_modules/
 graphql-prisma/node_modules/
 npm-debug.log
 yarn-error.log
+
+# prisma
+
+graphql-prisma/prisma/
